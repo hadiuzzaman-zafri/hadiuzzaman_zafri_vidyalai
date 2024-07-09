@@ -44,15 +44,43 @@ const Content = styled.div(() => ({
   },
 }));
 
+// Content herader where the user info will reflect
+const ContentHeader = styled.div(() => ({
+  display: 'flex',
+  padding: '10px',
+  gap: '10px', 
+  '& > h4:first-child': { // User First and Last name - first letter in a circle 
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    backgroundColor: '#000',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '18px',
+    textAlign: 'center',
+  },
+}));
+
+// User First and Last Name with email in small text
+const ContentInfo = styled.div(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+}));
+
 const Button = styled.button(() => ({
   position: 'absolute',
-  bottom: 0,
+  bottom: '35%',                  // This push the button up with the help of tranform property
+  transform: 'translateY(-50%)',  // Align the Button vertically center with respect to the Carouse
   backgroundColor: 'rgba(255, 255, 255, 0.5)',
   border: 'none',
   color: '#000',
   fontSize: '20px',
   cursor: 'pointer',
   height: '50px',
+  
 }));
 
 const PrevButton = styled(Button)`
@@ -65,6 +93,14 @@ const NextButton = styled(Button)`
 
 const Post = ({ post }) => {
   const carouselRef = useRef(null);
+
+  // This Arrow function extract the First letter from both First and Last name
+  const userFirstAndLastLetter = () => {
+        const names = post.user.name.split(' '); 
+        const firstNameInitial = names[0].charAt(0);
+        const lastNameInitial = names[names.length - 1].charAt(0);
+        return `${firstNameInitial}${lastNameInitial}`;
+  };
 
   const handleNextClick = () => {
     if (carouselRef.current) {
@@ -86,6 +122,13 @@ const Post = ({ post }) => {
 
   return (
     <PostContainer>
+      <ContentHeader>
+        <h4>{userFirstAndLastLetter()}</h4>
+        <ContentInfo>
+          <h4>{post.user.name}</h4>
+          <p><small>{post.user.email}</small></p>
+        </ContentInfo>
+      </ContentHeader>
       <CarouselContainer>
         <Carousel ref={carouselRef}>
           {post.images.map((image, index) => (
@@ -116,3 +159,4 @@ Post.propTypes = {
 };
 
 export default Post;
+
