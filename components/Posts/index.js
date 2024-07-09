@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import Post from './Post';
 import Container from '../common/Container';
 
-import { useWindowWidthContext } from '../hooks/windowWidthContext';
+import { useWindowWidthContext } from '../hooks/useWindowWidthContext';
 
 const PostListContainer = styled.div(() => ({
   display: 'flex',
