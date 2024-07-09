@@ -17,6 +17,8 @@ app
 
     server.use('/api/v1/posts', postRoutes);
     server.use('/api/v1/users', userRoutes);
+    console.log(postRoutes);
+    console.log(userRoutes);
 
     server.get('*', (req, res) => {
       return handle(req, res);
